@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}{{ site_header|default:_('Judge Server') }}{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'home' %}">{{ site_header|default:_('Judge Server') }}</a>
+    </h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block content %}
+    <h1>
+        {{ user.profile.studentID }} - {{ user.profile.fullName }}
+    </h1>
+    <br/>
+    <h1>Results</h1>
+    <table>
+        <tr>
+            {% for lab in labs %}
+                <th>{{ lab.code }}</th>
+            {% endfor %}
+        </tr>
+        <tr>
+            {% for result in results %}
+                <td>{% if result %}
+                        {{ result }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            {% endfor %}
+        </tr>
+    </table>
+    <br/>
+    <h1>Submissions</h1>
+    <table>
+        <tr>
+            <td>Datetime</td>
+            <td>Laboratory</td>
+            <td>Exercise</td>
+            <td>State</td>
+            <td>Score</td>
+        </tr>
+        {% for sbms in submissions %}
+        <tr>
+            <td>{{ sbms.sDatetime|date:'Y-m-d H:i:s' }}</td>
+            <td>{{ sbms.exercise.lab.code }}</td>
+            <td><a href="{% url 'judge:exercise' sbms.exercise.id %}">{{ sbms.exercise.code }}</a></td>
+            <td><a href="{%  url 'judge:submission' sbms.id %}">{{ sbms.state }}</a></td>
+            <td>{{ sbms.score }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Exercise
+{% endblock %}
+{% block branding %}
+    <h1 id="site-name">
+        Exercise:
+        {{ exercise }}
+    </h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="{% url 'home' %}">Home</a> >
+    <a href="{% url 'judge:exercise' exercise.id %}">Exercise</a>
+    </div>
+    {% endblock %}
+
+{% block content %}
+    <form action="{% url 'judge:exercise' exercise.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h1>Exercise</h1></legend>
+            <label>Laboratory:</label><br/>
+            <input type="text" value="{{ exercise.lab }}"><br/><br/>
+            <label>Code:</label><br/>
+            <input type="text" value="{{ exercise.code }}"><br/><br/>
+            <label>Language</label><br/>
+            <input type="text" value="{{ exercise.lang }}"><br/><br/>
+            <label>Description</label><br/>
+            <textarea rows="20" cols="50">{{ exercise.description }}</textarea><br/><br/>
+            <label>Support Script</label><br/>
+            <textarea rows="20" cols="50">{{ exercise.supportScript }}</textarea><br/><br/>
+        </fieldset>
+    </form>
+{% endblock %}

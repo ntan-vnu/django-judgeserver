@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Submit
+{% endblock %}
+{% block branding %}
+    <h1 id="site-name">
+        Submit
+    </h1>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+        <a href="{% url 'home' %}">Home</a> >
+        <a href="{% url 'judge:submit' %}">Submit</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <form method="post">{% csrf_token %}
+        {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
