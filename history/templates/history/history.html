@@ -45,7 +45,7 @@
             <tr>
                 <td>{{ sbms.sDatetime|date:'Y-m-d H:i:s' }}</td>
                 <td>{{ sbms.exercise.lab.code }}</td>
-                <td>{{ sbms.exercise.code }}</td>
+                <td><a href="{% url 'judge:exercise' sbms.exercise.id %}">{{ sbms.exercise.code }}</a></td>
                 <td>{{ sbms.student.studentID }}</td>
                 <td>{{ sbms.student.fullName }}</td>
                 <td><a href="{% url 'judge:submission' sbms.id %}">{{ sbms.state }}</a></td>
