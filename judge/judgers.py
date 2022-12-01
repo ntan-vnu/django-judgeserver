@@ -124,7 +124,7 @@ class JavaJudger(BaseJudger):
         score = 0
         for i in range(self.numTestcase):
             try:
-                cmd = 'cd {0}{1}java Main < {2:03d}.in > {2:03d}.out' \
+                cmd = 'cd {0} {1} java Main < {2:03d}.in > {2:03d}.out' \
                     .format(self.workingDir, self.cmdSep, i)
                 print(cmd)
                 self.runProcess(cmd)
@@ -149,7 +149,7 @@ class PythonJudger(BaseJudger):
         score = 0
         for i in range(self.numTestcase):
             try:
-                code = os.system('cd {0}{1} python main.py < {2:03d}.in > {2:03d}.out'
+                code = os.system('cd {0} {1} python main.py < {2:03d}.in > {2:03d}.out'
                                  .format(self.workingDir, self.cmdSep, i))
                 assert code == 0, Exception('run error. testcase{0}'.format(i))
                 s = self.compare(i)
