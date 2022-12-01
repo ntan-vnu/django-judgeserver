@@ -33,6 +33,11 @@ class Exercise(models.Model):
 
 
 class Submission(models.Model):
+    STATE_PENDING = 'pending'
+    STATE_JUDGING = 'judging'
+    STATE_ERROR = 'error'
+    STATE_ACCEPTED = 'accepted'
+
     student = models.ForeignKey(StudentProfile,
                                 related_name='submissions',
                                 on_delete=models.CASCADE)
@@ -40,7 +45,8 @@ class Submission(models.Model):
                                  related_name='submissions',
                                  on_delete=models.CASCADE)
     state = models.CharField(max_length=32,
-                             choices=[('pending', 'pending'), ('error', 'error'), ('accepted', 'accepted')],
+                             choices=[('pending', 'pending'), ('judging', 'judging'),
+                                      ('error', 'error'), ('accepted', 'accepted')],
                              default='pending')
     log = models.TextField(max_length=4096, default='', blank=True)
     score = models.FloatField(default=0)
