@@ -3,14 +3,15 @@ from django.contrib.auth.models import User
 from account.models import *
 import sys
 
-cls = 'N07T01'
-filename = '../judgeserver-test2/DSA_N07T01.txt'
+cls = 'Calculus_N01T02'
+filename = '../judgeserver-test5/GiaiTichN01T02.txt'
 
 cls = ClassProfile.objects.filter(code=cls).first()
 print('import', cls)
 
 for line in open(filename):
-    studentId, fullname = line.strip().split('\t')
+    studentId, lastname, firstname = line.strip().split('\t')
+    fullname = lastname + ' ' + firstname
     u = User.objects.create_user(username=studentId, password=studentId)
     u.save()
     s = StudentProfile(studentID=studentId,

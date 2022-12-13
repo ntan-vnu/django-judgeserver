@@ -45,28 +45,21 @@ class BaseJudger:
         return 1
 
     def extractTestcases(self, ex: Exercise):
+        testcases = ex.testcaseIn.split('@')
         count = 0
-        testcaseIth = []
-        for line in ex.testcaseIn.split('\n'):
-            if line.strip() == '@':
-                with open(self.workingDir + '/%03d.in' % count, 'wt') as g:
-                    g.writelines(testcaseIth)
-                testcaseIth = []
+        for testcaseIth in testcases:
+            with open(self.workingDir + '/%03d.in' % count, 'wt') as g:
+                g.write(testcaseIth.strip())
                 count += 1
-            else:
-                testcaseIth.append(line)
 
+        testcases = ex.testcaseOut.split('@')
         count = 0
-        testcaseIth = []
-        for line in ex.testcaseOut.split('\n'):
-            if line.strip() == '@':
-                with open(self.workingDir + '/%03d.ans' % count, 'wt') as g:
-                    g.writelines(testcaseIth)
-                testcaseIth = []
+        for testcaseIth in testcases:
+            with open(self.workingDir + '/%03d.ans' % count, 'wt') as g:
+                g.write(testcaseIth.strip())
                 count += 1
-            else:
-                testcaseIth.append(line)
-        self.numTestcase = count
+        
+        self.numTestcase = len(testcases)-1
 
     def judge(self) -> float:
         try:
