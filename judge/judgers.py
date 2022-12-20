@@ -2,6 +2,7 @@ import datetime
 import os
 import secrets
 import subprocess
+import math
 
 from judge.models import Submission, Exercise, Result
 
@@ -41,6 +42,7 @@ class BaseJudger:
         for i in range(len(outTerms)):
             print(outTerms[i], ansTerms[i])
             if outTerms[i] != ansTerms[i]:
+            # if math.fabs(float(outTerms[i]) - float(ansTerms[i])) > 1e-4:
                 return 0
         return 1
 
@@ -48,18 +50,20 @@ class BaseJudger:
         testcases = ex.testcaseIn.split('@')
         count = 0
         for testcaseIth in testcases:
-            with open(self.workingDir + '/%03d.in' % count, 'wt') as g:
-                g.write(testcaseIth.strip())
-                count += 1
+            if len(testcaseIth) > 0:
+                with open(self.workingDir + '/%03d.in' % count, 'wt') as g:
+                    g.write(testcaseIth.strip().replace('\r\n', '\n'))
+                    count += 1
 
         testcases = ex.testcaseOut.split('@')
         count = 0
         for testcaseIth in testcases:
-            with open(self.workingDir + '/%03d.ans' % count, 'wt') as g:
-                g.write(testcaseIth.strip())
-                count += 1
+            if len(testcaseIth) > 0:
+                with open(self.workingDir + '/%03d.ans' % count, 'wt') as g:
+                    g.write(testcaseIth.strip().replace('\r\n', '\n'))
+                    count += 1
         
-        self.numTestcase = len(testcases)-1
+        self.numTestcase = count
 
     def judge(self) -> float:
         try:
