@@ -11,4 +11,4 @@ class SubmitForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['exercise'].queryset = Exercise.objects.filter(
-            lab__classCode__active=True)
+            lab__classCode__active=True, lab__active=True)

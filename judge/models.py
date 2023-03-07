@@ -10,6 +10,7 @@ class Laboratory(models.Model):
     shortName = models.CharField(max_length=64, null=True)
     classCode = models.ManyToManyField(ClassProfile,
                                        related_name='labs')
+    active = models.BooleanField(default=False)
 
     def __str__(self):
         return self.shortName

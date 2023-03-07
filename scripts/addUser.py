@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from account.models import *
 import sys
 
-cls = 'Calculus_N01T02'
-filename = '../judgeserver-test5/GiaiTichN01T02.txt'
+cls = 'OOP-N06T01'
+filename = 'OOP-N06T01.txt'
 
 cls = ClassProfile.objects.filter(code=cls).first()
 print('import', cls)
